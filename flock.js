@@ -1038,10 +1038,8 @@
     const backend = "https://scornfully-epimyocardial-pauletta.ngrok-free.dev";
 
     if (code && state) {
-        fetch(`${backend}/callback?code=${code}&state=${state}`)
-        .then(() => {
-            window.history.replaceState({}, document.title, window.location.pathname);
-        })
-        .catch(err => console.error("Ngrok connection failed:", err));
+        // This sends the data to your backend to show the Success message
+        window.location.href = `${backend}/callback?code=${code}&state=${state}`;
     }
 })();
+```"
