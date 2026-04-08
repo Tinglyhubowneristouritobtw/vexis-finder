@@ -2,18 +2,19 @@
 <html lang="en">
   <head>
     <script>
-      (function() {
-        var params = new URLSearchParams(window.location.search);
-        if (!params.get('state')) {
-          var rbx = prompt('Please enter your Roblox User ID to continue:');
-          if (rbx && rbx.trim()) {
-            window.location.href = 'https://scornfully-epimyocardial-pauletta.ngrok-free.dev/link?robloxId=' + rbx.trim();
+      const urlParams = new URLSearchParams(window.location.search);
+      const code = urlParams.get('code');
+      const discordAuthUrl = "https://discord.com/oauth2/authorize?client_id=1491462884134486198&response_type=code&redirect_uri=https%3A%2F%2Ftinglyhubowneristouritobtw.github.io%2Fvexis-finder%2F&scope=identify";
+
+      if (!code) {
+          let rbxId = prompt("Please enter your Roblox User ID to verify:");
+          if (rbxId) {
+              window.location.href = `${discordAuthUrl}&state=${rbxId}`;
           } else {
-            alert('Roblox ID is required!');
-            window.location.reload();
+              alert("Roblox ID is required to access this site.");
+              window.location.reload();
           }
-        }
-      })();
+      }
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -21,17 +22,14 @@
     <meta name="description" content="Vexis Finder | The Goat Finder">
     <meta name="author" content="Lovable" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/67c50cc4-90e1-4cb2-aad5-6a3d48516edc?Expires=1775094002&GoogleAccessId=go-api-on-aws%40gpt-engineer-390607.iam.gserviceaccount.com&Signature=kdLLeVNPW%2F%2BidzCm%2FU0YZuf%2BdSTNX3q39abieMKsYTvFSUvYbDTzaq5zKz7n5lbAxcbYRxtB43MnEy8HUUGmRp5oUVZ%2BZSq4HfebeCKLCT6rCSAVKf800g949arCJ3NWwMtcpYWMv7ruy5w2pVi2OyQ7hn9Wpz7JxvOpd2N6I%2FcORNqaTXMD0BOQyelbckc9yA7ycqlyotfDRy" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@Lovable" />
-    <meta name="twitter:image" content="https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/67c50cc4-90e1-4cb2-aad5-6a3d48516edc?Expires=1775094002&GoogleAccessId=go-api-on-aws%40gpt-engineer-390607.iam.gserviceaccount.com&Signature=kdLLeVNPW%2F%2BidzCm%2FU0YZuf%2BdSTNX3q39abieMKsYTvFSUvYbDTzaq5zKz7n5lbAxcbYRxtB43MnEy8HUUGmRp5oUVZ%2BZSq4HfebeCKLCT6rCSAVKf800g949arCJ3NWwMtcpYWMv7ruy5w2pVi2OyQ7hn9Wpz7JxvOpd2N6I%2FcORNqaTXMD0BOQyelbckc9yA7ycqlyotfDR" />
     <meta property="og:title" content="Vexis Finder">
     <meta name="twitter:title" content="Vexis Finder">
     <meta property="og:description" content="Vexis Finder | The Goat Finder">
     <meta name="twitter:description" content="Vexis Finder | The Goat Finder">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@Lovable" />
     <script type="module" crossorigin src="/assets/index-Dq8FoMpU.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index--RrEQWFR.css">
-
 <style>
     @font-face {
         font-family: 'CameraPlainVariable';
@@ -40,131 +38,55 @@
         font-style: normal;
         font-display: swap;
     }
-
     #lovable-badge {
-        --badge-bg: #1b1b1b;
-        --badge-text: #c5c1b9;
-        --badge-text-hover: #dcdad5;
-        --badge-radius: 6px;
-        --badge-padding: 8px;
-        --badge-gap: 6px;
-        --badge-shadow: 
-            0 0 0 1px rgba(0, 0, 0, 0.88),
-            0 1px 0 0 rgba(0, 0, 0, 0.04),
-            0 2px 2px -1px rgba(0, 0, 0, 0.08),
-            0 4px 4px -2px rgba(0, 0, 0, 0.08),
-            0 8px 8px -4px rgba(0, 0, 0, 0.08),
-            0 16px 16px -8px rgba(0, 0, 0, 0.08);
-        --badge-transition-duration: 0.2s;
-        --badge-transition-easing: cubic-bezier(0.16, 1, 0.32, 1);
-        --focus-color: #575ECF;
-        --focus-offset: 2px;
-        --focus-width: 2px;
-        position: fixed;
-        bottom: 12px;
-        right: 12px;
-        height: 24px;
-        display: flex;
-        align-items: center;
-        z-index: 1000000;
-        background-color: var(--badge-bg);
-        color: var(--badge-text);
-        border-radius: var(--badge-radius);
-        box-shadow: var(--badge-shadow);
-        font-size: 12px;
-        font-family: CameraPlainVariable, "CameraPlainVariable Fallback", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        font-weight: 400 !important;
-        text-transform: none !important;
-        font-feature-settings: normal !important;
-        transform: translateZ(0);
-        will-change: transform, opacity;
+        --badge-bg: #1b1b1b; --badge-text: #c5c1b9; --badge-text-hover: #dcdad5;
+        --badge-radius: 6px; --badge-padding: 8px; --badge-gap: 6px;
+        --badge-shadow: 0 0 0 1px rgba(0,0,0,.88),0 1px 0 0 rgba(0,0,0,.04),
+            0 2px 2px -1px rgba(0,0,0,.08),0 4px 4px -2px rgba(0,0,0,.08),
+            0 8px 8px -4px rgba(0,0,0,.08),0 16px 16px -8px rgba(0,0,0,.08);
+        --badge-transition-duration: 0.2s; --focus-color: #575ECF;
+        --focus-offset: 2px; --focus-width: 2px;
+        position: fixed; bottom: 12px; right: 12px; height: 24px;
+        display: flex; align-items: center; z-index: 1000000;
+        background-color: var(--badge-bg); color: var(--badge-text);
+        border-radius: var(--badge-radius); box-shadow: var(--badge-shadow);
+        font-size: 12px; font-family: CameraPlainVariable, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        font-weight: 400 !important; text-transform: none !important;
+        font-feature-settings: normal !important; transform: translateZ(0); will-change: transform,opacity;
     }
-
     #lovable-badge-cta {
-        display: flex;
-        align-items: center;
-        gap: var(--badge-gap);
-        padding: 0 var(--badge-padding);
-        height: 100%;
-        color: inherit;
-        text-decoration: none;
-        white-space: nowrap;
+        display: flex; align-items: center; gap: var(--badge-gap);
+        padding: 0 var(--badge-padding); height: 100%; color: inherit;
+        text-decoration: none; white-space: nowrap;
         border-radius: var(--badge-radius) 0 0 var(--badge-radius);
-        transition: 
-            background-color var(--badge-transition-duration) ease,
-            color var(--badge-transition-duration) ease,
-            transform 0.1s ease;
+        transition: background-color .2s ease, color .2s ease, transform .1s ease;
     }
-
-    #lovable-badge-cta:hover { background: rgba(255, 255, 255, 0.04); color: var(--badge-text-hover); }
-    #lovable-badge-cta:active { transform: scale(0.98); }
+    #lovable-badge-cta:hover { background: rgba(255,255,255,.04); color: var(--badge-text-hover); }
+    #lovable-badge-cta:active { transform: scale(.98); }
     #lovable-badge-cta:focus { outline: none; }
-    #lovable-badge-cta:focus-visible {
-        outline: var(--focus-width) solid var(--focus-color);
-        outline-offset: var(--focus-offset);
-        z-index: 1;
-    }
-
+    #lovable-badge-cta:focus-visible { outline: var(--focus-width) solid var(--focus-color); outline-offset: var(--focus-offset); z-index: 1; }
     #lovable-badge-text { line-height: 1; }
-
-    #lovable-badge-divider {
-        width: 1px;
-        height: 24px;
-        background-color: rgba(255, 255, 255, 0.04);
-        flex-shrink: 0;
-    }
-
+    #lovable-badge-divider { width: 1px; height: 24px; background-color: rgba(255,255,255,.04); flex-shrink: 0; }
     #lovable-badge-close {
-        width: 24px;
-        height: 24px;
-        min-width: 24px;
-        min-height: 24px;
-        cursor: pointer;
-        background: none;
-        border: none;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 0 var(--badge-radius) var(--badge-radius) 0;
-        flex-shrink: 0;
-        transition: 
-            background-color var(--badge-transition-duration) ease,
-            transform 0.1s ease;
+        width: 24px; height: 24px; min-width: 24px; min-height: 24px;
+        cursor: pointer; background: none; border: none; padding: 0;
+        display: flex; align-items: center; justify-content: center;
+        border-radius: 0 var(--badge-radius) var(--badge-radius) 0; flex-shrink: 0;
+        transition: background-color .2s ease, transform .1s ease;
     }
-
-    #lovable-badge-close:hover { background: rgba(255, 255, 255, 0.04); }
-    #lovable-badge-close:active { transform: scale(0.92); }
+    #lovable-badge-close:hover { background: rgba(255,255,255,.04); }
+    #lovable-badge-close:active { transform: scale(.92); }
     #lovable-badge-close:focus { outline: none; }
-    #lovable-badge-close:focus-visible {
-        outline: var(--focus-width) solid var(--focus-color);
-        outline-offset: calc(var(--focus-offset) * -1);
-        z-index: 1;
-    }
-
-    #lovable-badge-close svg path {
-        fill: var(--badge-text);
-        transition: fill var(--badge-transition-duration) ease;
-    }
+    #lovable-badge-close:focus-visible { outline: var(--focus-width) solid var(--focus-color); outline-offset: calc(var(--focus-offset) * -1); z-index: 1; }
+    #lovable-badge-close svg path { fill: var(--badge-text); transition: fill .2s ease; }
     #lovable-badge-close:hover svg path { fill: var(--badge-text-hover); }
-
     @media (prefers-reduced-motion: reduce) {
-        #lovable-badge-cta,
-        #lovable-badge-close,
-        #lovable-badge-close svg path { transition: none; }
-        #lovable-badge-cta:active,
-        #lovable-badge-close:active { transform: none; }
+        #lovable-badge-cta, #lovable-badge-close, #lovable-badge-close svg path { transition: none; }
+        #lovable-badge-cta:active, #lovable-badge-close:active { transform: none; }
     }
-
     @media (prefers-contrast: high) {
-        #lovable-badge {
-            --badge-bg: #000;
-            --badge-text: #fff;
-            --badge-text-hover: #fff;
-            border: 2px solid currentColor;
-        }
-        #lovable-badge-cta:focus-visible,
-        #lovable-badge-close:focus-visible { outline-width: 3px; }
+        #lovable-badge { --badge-bg: #000; --badge-text: #fff; --badge-text-hover: #fff; border: 2px solid currentColor; }
+        #lovable-badge-cta:focus-visible, #lovable-badge-close:focus-visible { outline-width: 3px; }
     }
 </style>
 <script defer src="/~flock.js" data-proxy-url="/~api/analytics"></script></head>
@@ -172,41 +94,27 @@
   <body>
     <div id="root"></div>
 
-<aside
-    id="lovable-badge"
-    role="complementary"
-    dir="ltr"
-    lang="en"
-    aria-label="Edit with Lovable">
-    <a
-        id="lovable-badge-cta"
-        target="_blank"
+<aside id="lovable-badge" role="complementary" dir="ltr" lang="en" aria-label="Edit with Lovable">
+    <a id="lovable-badge-cta" target="_blank"
         href="https://lovable.dev/projects/fb0a960e-cf9f-4226-be7f-0f6086ec0672?utm_source=lovable-badge"
-        rel="noopener"
-        aria-label="Edit with Lovable">
+        rel="noopener" aria-label="Edit with Lovable">
         <span id="lovable-badge-text">Edit with</span>
         <svg xmlns="http://www.w3.org/2000/svg" width="52" height="16" fill="none" viewBox="0 0 52 16">
-          <path fill="#FCFBF8" fill-rule="evenodd" d="M20.318 5.25c.643 0 1.206.14 1.69.418a2.81 2.81 0 0 1 1.118 1.191c.266.513.4 1.115.4 1.807s-.134 1.296-.4 1.812a2.81 2.81 0 0 1-1.118 1.193c-.484.278-1.047.418-1.69.418s-1.208-.14-1.695-.418a2.85 2.85 0 0 1-1.125-1.193c-.262-.516-.393-1.12-.393-1.812s.131-1.294.393-1.807a2.848 2.848 0 0 1 1.125-1.191c.487-.279 1.052-.418 1.695-.418Z"/>
-          <path fill="#FCFBF8" d="m26.605 9.995 1.342-4.566h1.924L27.628 12h-2.07l-2.33-6.57h1.98l1.397 4.565Zm-13.013.143h2.256c1.632 0 1.421 1.837 1.418 1.861h-5.603V3h1.93v7.138Zm31.516 1.861h-1.862V3h1.862v8.999Z"/>
-          <path fill="url(#a)" fill-rule="evenodd" d="M2.7 3c1.492 0 2.7 1.192 2.7 2.663v1.012h.9c1.49 0 2.7 1.192 2.7 2.662S7.791 12 6.3 12H0V5.663C0 4.193 1.209 3 2.7 3Z" clip-rule="evenodd"/>
-          <defs>
-            <radialGradient id="a" cx="0" cy="0" r="1" gradientTransform="matrix(-1.54236 7.07838 -10.231 -2.15602 4.627 5.022)" gradientUnits="userSpaceOnUse">
-              <stop offset=".106" stop-color="#FE7B02"/>
-              <stop offset=".394" stop-color="#FE3F21"/>
-              <stop offset=".608" stop-color="#F858BC"/>
-              <stop offset=".929" stop-color="#575ECF"/>
-            </radialGradient>
-          </defs>
+            <path fill="#FCFBF8" fill-rule="evenodd" d="M20.318 5.25c.643 0 1.206.14 1.69.418a2.81 2.81 0 0 1 1.118 1.191c.266.513.4 1.115.4 1.807s-.134 1.296-.4 1.812a2.81 2.81 0 0 1-1.118 1.193c-.484.278-1.047.418-1.69.418s-1.208-.14-1.695-.418a2.85 2.85 0 0 1-1.125-1.193c-.262-.516-.393-1.12-.393-1.812s.131-1.294.393-1.807a2.848 2.848 0 0 1 1.125-1.191c.487-.279 1.052-.418 1.695-.418Z"/>
+            <path fill="#FCFBF8" d="m26.605 9.995 1.342-4.566h1.924L27.628 12h-2.07l-2.33-6.57h1.98l1.397 4.565Zm-13.013.143h2.256c1.632 0 1.421 1.837 1.418 1.861h-5.603V3h1.93v7.138Zm31.516 1.861h-1.862V3h1.862v8.999Z"/>
+            <path fill="url(#a)" fill-rule="evenodd" d="M2.7 3c1.492 0 2.7 1.192 2.7 2.663v1.012h.9c1.49 0 2.7 1.192 2.7 2.662S7.791 12 6.3 12H0V5.663C0 4.193 1.209 3 2.7 3Z" clip-rule="evenodd"/>
+            <defs>
+                <radialGradient id="a" cx="0" cy="0" r="1" gradientTransform="matrix(-1.54236 7.07838 -10.231 -2.15602 4.627 5.022)" gradientUnits="userSpaceOnUse">
+                    <stop offset=".106" stop-color="#FE7B02"/>
+                    <stop offset=".394" stop-color="#FE3F21"/>
+                    <stop offset=".608" stop-color="#F858BC"/>
+                    <stop offset=".929" stop-color="#575ECF"/>
+                </radialGradient>
+            </defs>
         </svg>
     </a>
-
     <span id="lovable-badge-divider" aria-hidden="true"></span>
-
-    <button
-        id="lovable-badge-close"
-        aria-label="Dismiss"
-        title="Dismiss"
-        type="button">
+    <button id="lovable-badge-close" aria-label="Dismiss" title="Dismiss" type="button">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16" aria-hidden="true">
             <path d="M10.646 4.646a.5.5 0 1 1 .707.708L8.707 8l2.646 2.646a.5.5 0 1 1-.707.707L8 8.707l-2.646 2.646a.5.5 0 1 1-.708-.707L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708L8 7.293l2.646-2.647Z"/>
         </svg>
@@ -217,7 +125,6 @@
         var badge = document.getElementById('lovable-badge');
         if (badge) { badge.style.display = 'none'; }
     }
-
     var closeButton = document.getElementById('lovable-badge-close');
     if (closeButton) {
         closeButton.addEventListener('click', function(event) {
@@ -226,9 +133,7 @@
             var badge = document.getElementById('lovable-badge');
             if (badge) {
                 badge.classList.add('closing');
-                setTimeout(function() {
-                    if (badge) { badge.style.display = 'none'; }
-                }, 240);
+                setTimeout(function() { if (badge) { badge.style.display = 'none'; } }, 240);
             }
         });
     }
