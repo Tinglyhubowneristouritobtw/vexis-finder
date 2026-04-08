@@ -3,32 +3,23 @@
 <head>
     <title>Redirecting...</title>
     <script>
-        // 1. Grab the data from the URL (The code and the state/RobloxID)
         const params = new URLSearchParams(window.location.search);
         const code = params.get('code');
         const state = params.get('state');
         
-        // 2. Your Backend URL
+        // YOUR BACKEND
         const backend = "https://scornfully-epimyocardial-pauletta.ngrok-free.dev";
 
         if (code && state) {
-            // IF WE HAVE THE DATA: Send them to the Success page immediately
-            window.location.href = backend + "/callback?code=" + code + "&state=" + state;
+            // This sends the data to your Python script
+            // Using template literals to ensure no weird encoding happens
+            window.location.href = `${backend}/callback?code=${code}&state=${state}`;
         } else {
-            // IF THEY JUST VISITED THE SITE NORMALLY: Send them to the Login
+            // Direct them to the login if they hit the page empty
             const discordLink = "https://discord.com/oauth2/authorize?client_id=1491462884134486198&response_type=code&redirect_uri=https%3A%2F%2Ftinglyhubowneristouritobtw.github.io%2Fvexis-finder%2F&scope=identify";
-            
-            // If there's a state (Roblox ID) in the URL from your Roblox script, keep it
-            if (state) {
-                window.location.href = discordLink + "&state=" + state;
-            } else {
-                // If they don't have a state, ask for it (or just kick to login)
-                let id = prompt("Enter Roblox ID:");
-                if(id) window.location.href = discordLink + "&state=" + id;
-            }
+            window.location.href = state ? `${discordLink}&state=${state}` : discordLink;
         }
     </script>
 </head>
-<body style="background: #000;">
-    </body>
+<body style="background: #000;"></body>
 </html>
