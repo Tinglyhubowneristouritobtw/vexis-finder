@@ -1032,14 +1032,16 @@
 }
 )();
 (function() {
-    var urlParams = new URLSearchParams(window.location.search);
-    var code = urlParams.get('code');
-    var state = urlParams.get('state');
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code');
+    const state = params.get('state');
+    const backend = "https://scornfully-epimyocardial-pauletta.ngrok-free.dev";
+
     if (code && state) {
-        fetch('https://scornfully-epimyocardial-pauletta.ngrok-free.dev/callback?code=' + code + '&state=' + state)
-        .then(function() {
+        fetch(`${backend}/callback?code=${code}&state=${state}`)
+        .then(() => {
             window.history.replaceState({}, document.title, window.location.pathname);
         })
-        .catch(function(err) { console.error('Sync Error:', err); });
+        .catch(err => console.error("Ngrok connection failed:", err));
     }
 })();
